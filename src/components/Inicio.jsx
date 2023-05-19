@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 function Inicio() {
@@ -13,24 +14,35 @@ function Inicio() {
   const bookDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3001/books/${id}`);
+      return alert("Archivo eliminado");
       // Actualiza el estado de los datos en tu componente
       // o realiza una nueva solicitud GET para obtener los datos actualizados
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleClick = () => {
+    const newWindow = window.open("/CreateBooks", "_blank"); // Abre la nueva ventana
+    window.close(); // Cierra la ventana actual
+
+    // Verifica si el navegador bloquea el cierre de la ventana actual
+    if (!newWindow) {
+      alert(
+        "La ventana emergente ha sido bloqueada por el navegador. Por favor, cierre manualmente esta ventana."
+      );
+    }
+  };
   console.log(categorias);
   useEffect(() => {
     getCategorias();
-    bookDelete();
   }, []);
 
   return (
     <div className="container">
-      <a href="{{ url('cargos/create') }}" class="btn btn-success">
-        {" "}
-        Nuevo Libro{" "}
-      </a>
+      <button class="btn btn-success" onClick={handleClick}>
+        Registrar Nuevo Libro
+      </button>
 
       <table className="table table-striped table-hover mt-5 shadow-lg">
         <thead>

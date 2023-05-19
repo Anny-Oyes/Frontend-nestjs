@@ -4,16 +4,18 @@ import axios from "axios";
 function CreateBook() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [amountPage, setAmountPage] = useState("");
-  const [price, setPrice] = useState("");
-  const [stock, setStock] = useState("");
+  const [amountPage, setAmountPage] = useState();
+  const [price, setPrice] = useState();
+  const [stock, setStock] = useState();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Aquí puedes realizar la lógica para enviar los datos del formulario al servidor
-    console.log("Nombre:", title);
-    console.log("Email:", author);
-    console.log("Contraseña:", amountPage);
+    console.log(title);
+    console.log(author);
+    console.log(amountPage);
+    console.log(price);
+    console.log(stock);
 
     const datosFormulario = {
       title,
@@ -35,8 +37,8 @@ function CreateBook() {
       });
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div class="container">
+    <div>
+      <form onSubmit={handleSubmit}>
         <div class="form-group">
           <label htmlFor="nombre">Titulo:</label>
           <input
@@ -58,7 +60,7 @@ function CreateBook() {
         <div class="form-group">
           <label htmlFor="amountPage">Numer de paginas:</label>
           <input
-            type="text"
+            type="number"
             id="amountPage"
             value={amountPage}
             onChange={(e) => setAmountPage(e.target.value)}
@@ -76,15 +78,17 @@ function CreateBook() {
         <div class="form-group">
           <label htmlFor="stock">Stock:</label>
           <input
-            type="text"
+            type="number"
             id="stock"
             value={stock}
             onChange={(e) => setStock(e.target.value)}
           />
         </div>
-        <button type="submit">Registrarse</button>
-      </div>
-    </form>
+        <button class="btn btn-success" type="submit">
+          Registrarse Libro
+        </button>
+      </form>
+    </div>
   );
 }
 
